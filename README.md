@@ -27,12 +27,16 @@ docker compose down
 ## Exemplo de um fluxo básico de programação.
 Em caso de duvida, acesse a [Documentação do Laravel](https://laravel.com/docs/11.x/).
 
-1. Crie a [Migration](https://laravel.com/docs/11.x/migrations#main-content).
+### Passo 1
+Crie uma [Migration](https://laravel.com/docs/11.x/migrations#main-content).
 ```sh
 docker compose exec web php artisan make:migration create_exemplo_table
 ```
+# 
 
-2. Edite o ultimo arquivo gerado em `database/migrations`, criando nele a estrutura da sua tabela.
+### Passo 2
+Edite o último arquivo gerado em `database/migrations`, criando nele a estrutura da sua tabela.
+
 **Exemplo**
 ```php
 return new class extends Migration
@@ -51,29 +55,40 @@ return new class extends Migration
         Schema::dropIfExists('categoria_anime');
     }
 };
-
 ```
+#
 
-3. Crie o model
+### Passo 3
+Crie um model.
 ```sh
 php artisan make:model Exemplo
 ```
-vai criar um arquivo em `app/Models/Exemplo.php`
+o arquivo será gerado em `app/Models/Exemplo.php` para edição.
 
-4. Crie o Controller
+É onde você coloca informações sobre a tabela usando o [ORM](https://laravel.com/docs/11.x/eloquent) do Laravel.
+#
+
+### Passo 4
+Crie um Controller
 ```sh
 php artisan make:controller ExemploController
 ```
-vai criar um arquivo em `app/Http/Controllers/Exemplo.php`
+O arquivo será gerado em `app/Http/Controllers/Exemplo.php` para edição.
 
-5. Defina as rotas.
-abra `routes/web.php` e insira suas rotas.
+Nele você cria métodos para cada rota, seguindo o
+[padrão MVC](https://pt.wikipedia.org/wiki/MVC).
+#
+
+### Passo 5
+Abra `routes/web.php` e insira suas rotas.
 ```php
 use App\Http\Controllers\ExemploController;
-Route::get('/exemplo', [ExemploController::class, 'index']);
+Route::get('/exemplo', [ExemploController::class, 'index']); // função Controllers/Exemplo::index
 ```
+#
 
-6. Crie uma view em `resources/views` e crie um arquivo para a rota *index*.
+### Passo 6
+Crie um arquivo em `resources/views`. O arquivo é um [Blade Template](https://laravel.com/docs/11.x/blade).
 ```sh
 mkdir resources/views/exemplo
 touch resources/views/exemplo/index.blade.php
