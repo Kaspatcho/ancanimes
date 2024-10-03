@@ -15,10 +15,11 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory()->create([
+            'name' => 'Wade Wilson',
+            'email' => 'bla@example.com',
+            'password' => '12345',
+        ]);
 
         $this->call([
             AnimeSeeder::class,
