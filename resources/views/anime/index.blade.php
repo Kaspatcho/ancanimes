@@ -7,7 +7,10 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
-    <h1>{{config('app.name')}}</h1>
+    <div class="nav">
+        <h1>Olá, {{ explode(' ', Auth::user()->name, 2)[0] }}</h1>
+        <a href="{{ route('logout') }}" style="text-decoration: none; color: black;">Logout</a>
+    </div>
     <div class="container">
         <div class="card-list">
             @foreach ($animes as $anime)
