@@ -15,9 +15,14 @@ docker compose up --build -d
 docker compose exec web php artisan migrate
 ```
 
-4. Entre no site pela url `localhost:5000`
+4. Caso queira preencher o banco com dados de teste, use o [Seeder](https://laravel.com/docs/11.x/seeding).
+```sh
+docker compose exec web php artisan db:seed
+```
 
-5. Para desligar o servidor, use o comando abaixo:
+5. Entre no site pela url `localhost:5000`
+
+6. Para desligar o servidor, use o comando abaixo:
 ```sh
 docker compose down
 ```
@@ -92,4 +97,36 @@ Crie um arquivo em `resources/views`. O arquivo é um [Blade Template](https://l
 ```sh
 mkdir resources/views/exemplo
 touch resources/views/exemplo/index.blade.php
+```
+# 
+
+## Seeders
+Um Seeder serve para preencher o banco com dados de teste. Para criar um seeder, comece com o comando `make:seeder`
+```sh
+php artisan make:seeder ExemploSeeder
+```
+
+Com seu Seeder criado, entre nele em `database/seeders` e preencha o método run.
+```php
+use App\Models\Exemplo;
+
+class ExemploSeeder extends Seeder {
+    public function run(): void
+    {
+        Exemplo::create([
+            'id_exemplo' => 1,
+            'teste' => 'dado de teste'
+        ]);
+    }
+}
+```
+
+Caso o seu modelo nao tenha os timestamps, não esqueça de especificar isso na classe Model.
+```php
+class Exemplo extends Model {
+    use HasFactory;
+    public $table = 'exemplo'; // define o nome da tabela
+    protected $fillable = ['id_exemplo', 'teste']; // define quais campos serao preenchidos
+    public $timestamps = false; // define que a tabela nao possui as colunas created_at e updated_at
+}
 ```
