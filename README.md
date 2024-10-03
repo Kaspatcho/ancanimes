@@ -121,7 +121,7 @@ class ExemploSeeder extends Seeder {
 }
 ```
 
-Caso o seu modelo nao tenha os timestamps, não esqueça de especificar isso na classe Model.
+Caso o seu modelo não tenha os timestamps, não esqueça de especificar isso na classe Model.
 ```php
 class Exemplo extends Model {
     use HasFactory;
@@ -129,4 +129,81 @@ class Exemplo extends Model {
     protected $fillable = ['id_exemplo', 'teste']; // define quais campos serao preenchidos
     public $timestamps = false; // define que a tabela nao possui as colunas created_at e updated_at
 }
+```
+#
+
+## Autenticação
+1. Para criar um sistema de autenticação, crie sua página de login.
+No seu formulário, é necessaria a tag `@csrf` para que seja gerado um token de segurança para essa requisição.
+```php
+<form action="{{ route('/') }}" method="POST">
+    @csrf
+    <label for="login">Login:</label>
+    <input type="text" id="login" name="email"><br>
+    <label for="password">Senha:</label>
+    <input type="password" id="password" name="password">
+    <input type="submit" value="Entrar">
+</form>
+```
+
+2. No controller, valide seu código com
+[Validations](https://laravel.com/docs/11.x/validation#quick-writing-the-validation-logic).
+Caso tudo esteja certo, tente um login com `Auth::attempt`.
+```php
+$request->validate([
+    'email' => ['required', 'email'],
+    'password' => ['required'],
+]);
+
+// Tenta autenticar
+if (Auth::attempt($request->only('email', 'password'))) {
+    // Autenticação foi um sucesso
+    return redirect()->intended(route('dashboard'));
+}
+
+// Autenticação falhou
+```
+
+3. Confirme se o usuário está autenticado com a função `Auth::check()`.
+Isso é importante para rotas que só podem ser acessadas depois do login.
+
+4. Com o usuário autenticado, acesse suas informações com `Auth::user()`.
+#
+
+## Middleware
+Caso queira, crie regras para suas rotas usando [Middlewares](https://laravel.com/docs/11.x/middleware#introduction).
+1. rode o comando `php artisan make:middleware ExemploMiddleware`
+
+2. dentro do arquivo, coloque sua regra no método `handle`.
+```php
+class ExemploMiddleware
+{
+    /**
+     * Lida com a requisição.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function handle(Request $request, Closure $next): Response
+    {
+        // redireciona usuários não autenticados
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+        // segue para a página planejada
+        return $next($request);
+    }
+}
+```
+
+3. na sua rota, inclua seu middleware nas rotas desejadas.
+```php
+// coloca em rotas individuais
+Route::get('/exemplo1', [ExemploController::class, 'index'])->middleware(ExemploMiddleware::class);
+
+// coloca em um grupo de rotas
+Route::middleware(EnsureIsAuthenticated::class)->group(function() {
+    Route::get('/exemplo2/rota1', [ExemploController::class, 'rota1']);
+    Route::get('/exemplo2/rota2', [ExemploController::class, 'rota2']);
+});
 ```
