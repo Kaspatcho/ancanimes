@@ -133,7 +133,8 @@ class Exemplo extends Model {
 #
 
 ## Autenticação
-1. Para criar um sistema de autenticação, crie sua página de login.
+### 1.
+Para criar um sistema de autenticação, crie sua página de login.
 No seu formulário, é necessaria a tag `@csrf` para que seja gerado um token de segurança para essa requisição.
 ```php
 <form action="{{ route('/') }}" method="POST">
@@ -146,7 +147,8 @@ No seu formulário, é necessaria a tag `@csrf` para que seja gerado um token de
 </form>
 ```
 
-2. No controller, valide seu código com
+### 2.
+No controller, valide seu código com
 [Validations](https://laravel.com/docs/11.x/validation#quick-writing-the-validation-logic).
 Caso tudo esteja certo, tente um login com `Auth::attempt`.
 ```php
@@ -164,17 +166,22 @@ if (Auth::attempt($request->only('email', 'password'))) {
 // Autenticação falhou
 ```
 
-3. Confirme se o usuário está autenticado com a função `Auth::check()`.
+### 3.
+Confirme se o usuário está autenticado com a função `Auth::check()`.
 Isso é importante para rotas que só podem ser acessadas depois do login.
 
-4. Com o usuário autenticado, acesse suas informações com `Auth::user()`.
+### 4.
+Com o usuário autenticado, acesse suas informações com `Auth::user()`.
 #
 
 ## Middleware
 Caso queira, crie regras para suas rotas usando [Middlewares](https://laravel.com/docs/11.x/middleware#introduction).
-1. rode o comando `php artisan make:middleware ExemploMiddleware`
 
-2. dentro do arquivo, coloque sua regra no método `handle`.
+### 1.
+rode o comando `php artisan make:middleware ExemploMiddleware`
+
+### 2.
+dentro do arquivo, coloque sua regra no método `handle`.
 ```php
 class ExemploMiddleware
 {
@@ -196,7 +203,8 @@ class ExemploMiddleware
 }
 ```
 
-3. na sua rota, inclua seu middleware nas rotas desejadas.
+### 3.
+na sua rota, inclua seu middleware nas rotas desejadas.
 ```php
 // coloca em rotas individuais
 Route::get('/exemplo1', [ExemploController::class, 'index'])->middleware(ExemploMiddleware::class);
