@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('categoria_anime', function (Blueprint $table) {
             $table->integer('id_tipo')->primary();
-            $table->foreignId('id_anime')->constrained()->onDelete('cascade');
-            $table->foreignId('id_categoria')->constrained()->onDelete('cascade');
+            $table->integer('id_anime')->nullable();
+            $table->integer('id_categoria')->nullable();
+
+            $table->foreign('id_anime')->references('id_anime')->on('animes');
+            $table->foreign('id_categoria')->references('id_categoria')->on('categoria');
         });
     }
 
