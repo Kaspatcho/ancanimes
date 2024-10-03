@@ -20,7 +20,7 @@ class AnimeController extends Controller
 
         // Check if the anime exists
         if (!$anime) {
-            return redirect()->route('root')->with('error', 'Anime not found.');
+            return redirect()->route('anime.index')->with('error', 'Anime not found.');
         }
 
         // Return a view and pass the anime data
@@ -32,14 +32,14 @@ class AnimeController extends Controller
         $anime = Animes::find($id_anime);
 
         if (!$anime) {
-            return redirect()->route('root')->with('error', 'Anime not found.');
+            return redirect()->route('anime.index')->with('error', 'Anime not found.');
         }
 
         $nome = $anime->nome;
         $episodio = $anime->episodios->find($id_episodio);
 
         if (!$episodio) {
-            return redirect()->route('root')->with('error', 'Anime episode not found.');
+            return redirect()->route('anime.index')->with('error', 'Anime episode not found.');
         }
 
         return view('anime.episode', compact('nome', 'episodio'));
