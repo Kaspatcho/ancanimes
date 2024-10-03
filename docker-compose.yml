@@ -27,7 +27,6 @@ services:
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
     volumes:
-      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
       - dbdata:/var/lib/mysql
 
     networks:
