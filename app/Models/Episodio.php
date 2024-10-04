@@ -22,6 +22,6 @@ class Episodio extends Model
 
     public function anime()
     {
-        return $this->belongsTo(Anime::class, 'id_anime', 'id_anime');
+        return $this->belongsTo(Animes::class, 'id_anime', 'id_anime');
     }
 }
