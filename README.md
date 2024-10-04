@@ -172,6 +172,10 @@ Isso é importante para rotas que só podem ser acessadas depois do login.
 
 ### 4.
 Com o usuário autenticado, acesse suas informações com `Auth::user()`.
+
+### 5.
+Caso você já tenha um usuário salvo, efetue seu login a partir de uma variável com `Auth::login($user)`.
+Para sair, use `Auth::logout()`.
 #
 
 ## Middleware
