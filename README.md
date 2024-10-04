@@ -88,7 +88,7 @@ Nele você cria métodos para cada rota, seguindo o
 Abra `routes/web.php` e insira suas rotas.
 ```php
 use App\Http\Controllers\ExemploController;
-Route::get('/exemplo', [ExemploController::class, 'index']); // função Controllers/Exemplo::index
+Route::get('/exemplo', [ExemploController::class, 'index'])->name('nome_rota'); // função Controllers/Exemplo::index
 ```
 #
 
@@ -137,7 +137,7 @@ class Exemplo extends Model {
 Para criar um sistema de autenticação, crie sua página de login.
 No seu formulário, é necessaria a tag `@csrf` para que seja gerado um token de segurança para essa requisição.
 ```php
-<form action="{{ route('/') }}" method="POST">
+<form action="{{ route('nome_rota') }}" method="POST">
     @csrf
     <label for="login">Login:</label>
     <input type="text" id="login" name="email"><br>
@@ -196,7 +196,7 @@ class ExemploMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // redireciona usuários não autenticados
+        // redireciona usuários não autenticados para a pagina de login
         if (!Auth::check()) {
             return redirect()->route('login');
         }
