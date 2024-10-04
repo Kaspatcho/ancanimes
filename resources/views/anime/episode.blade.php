@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <center>
-            <h1>{{ $nome }} - Episódio {{ $episodio->n_episodio }}</h1>
+            <h1>{{ $episodio->anime->nome }} - Episódio {{ $episodio->n_episodio }}</h1>
             <iframe width="560" height="315" src="{{ $episodio->link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             <br>
             <a href="{{ route('anime.index') }}">Voltar</a>

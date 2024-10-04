@@ -15,7 +15,7 @@
         <div class="card-list">
             @foreach ($animes as $anime)
             <div class="card">
-                <a href="{{ route('anime.show', ['id_anime' => $anime->id_anime]) }}"
+                <a href="{{ route('anime.show', ['anime' => $anime]) }}"
                     style="text-decoration: none; color: black;">
                     <div class="card-title">{{ $anime->nome }}</div>
                     <div class="card-subtitle">

@@ -16,7 +16,7 @@
             <div class="card">
                 <div class="card-title">{{ $anime->nome }} - Episódio {{ $episodio->temporada }} x {{ $episodio->n_episodio }}</div>
                 <div class="card-body">
-                    <a href="{{ route('anime.episode', ['id_anime' => $anime->id_anime, 'id_episodio' => $episodio->id_episodio]) }}">Assistir</a>
+                    <a href="{{ route('anime.episode', ['episodio' => $episodio]) }}">Assistir</a>
                 </div>
             </div>
             @endforeach

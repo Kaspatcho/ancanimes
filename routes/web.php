@@ -12,6 +12,6 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(EnsureIsAuthenticated::class)->group(function() {
     Route::get('/lista', [AnimeController::class, 'index'])->name('anime.index');
-    Route::get('/anime/{id_anime}', [AnimeController::class, 'show'])->name('anime.show');
-    Route::get('/anime/{id_anime}/episodio/{id_episodio}', [AnimeController::class, 'episode'])->name('anime.episode');
+    Route::get('/anime/{anime}', [AnimeController::class, 'show'])->name('anime.show');
+    Route::get('/anime/episodio/{episodio}', [AnimeController::class, 'episode'])->name('anime.episode');
 });
