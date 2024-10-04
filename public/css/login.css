@@ -1,0 +1,49 @@
+@import 'style.css';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form > :last-child {
+    margin-top: 1rem;
+}
+
+.switch-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.switch-nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.switch-nav-option {
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem 0;
+    transition: 0.5s linear;
+    cursor: pointer;
+}
+
+.switch-nav-option:hover {
+    background-color: lightgray;
+}
+
+.switch-form:not(.selected) {
+    display: none;
+}
+
+span.error {
+    color: red;
+}

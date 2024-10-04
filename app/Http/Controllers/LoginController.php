@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -15,9 +16,9 @@ class LoginController extends Controller
     public function authenticate(Request $request)
     {
         // Validation
-        $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
+        $request->validateWithBag('login', [
+            'email' => 'required|email',
+            'password' => 'required',
        ]);
 
         // Attempt to authenticate   
@@ -28,8 +29,21 @@ class LoginController extends Controller
 
         // Authentication failed
         return back()->withErrors([
-            'email' => 'Invalid credentials.',
+            'email' => __('auth.failed')
+        ], 'login')->withInput();
+    }
+
+    public function signup(Request $request)
+    {
+        $request->validateWithBag('signup', [
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirmed'
         ]);
+
+        $user = User::create($request->only(['name', 'email', 'password']));
+        Auth::login($user);
+        return redirect()->intended(route('anime.index'));
     }
 
     public function logout()
