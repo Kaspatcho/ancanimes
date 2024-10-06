@@ -219,3 +219,9 @@ Route::middleware(EnsureIsAuthenticated::class)->group(function() {
     Route::get('/exemplo2/rota2', [ExemploController::class, 'rota2']);
 });
 ```
+
+NOTA: Este middleware de autenticação é só um exemplo. Para autenticação, use o middleware 'auth'.
+```php
+Route::get('/exemplo1', [ExemploController::class, 'index'])->middleware('auth');
+```
+
