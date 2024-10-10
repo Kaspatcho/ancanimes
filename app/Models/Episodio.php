@@ -18,6 +18,7 @@ class Episodio extends Model
         'n_episodio',
         'temporada',
         'link',
+        'video_link',
     ];
 
     public function anime()

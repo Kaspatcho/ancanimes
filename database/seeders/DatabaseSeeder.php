@@ -25,7 +25,6 @@ class DatabaseSeeder extends Seeder
             AnimeSeeder::class,
             CategoriaSeeder::class,
             CategoriaAnimeSeeder::class,
-            EpisodioSeeder::class,
         ]);
     }
 }

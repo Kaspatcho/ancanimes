@@ -21,7 +21,7 @@ class AnimeSeeder extends Seeder
 
         Animes::create([
             'id_anime' => 2,
-            'nome' => 'Attack on Titan',
+            'nome' => 'Shingeki No Kyojin',
             'descricao' => 'Um muleque fica grande e pelado'
         ]);
 
