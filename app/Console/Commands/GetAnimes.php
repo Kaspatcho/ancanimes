@@ -22,7 +22,7 @@ class GetAnimes extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Procura os links corretos para o anime passado';
 
     /**
      * Execute the console command.
