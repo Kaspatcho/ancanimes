@@ -224,4 +224,54 @@ NOTA: Este middleware de autenticação é só um exemplo. Para autenticação, 
 ```php
 Route::get('/exemplo1', [ExemploController::class, 'index'])->middleware('auth');
 ```
+#
 
+## Comandos
+Você pode criar comandos personalizados para rodar no artisan atraves do commando `artisan make:command NomeComando`.
+
+```php
+class NomeComando extends Command
+{
+    // a convenção é que se use o prefixo app:, mas não é obrigatório.
+    protected $signature = 'app:nome-comando {argumento1}'; // os argumentos sao passados entre chaves {}
+    protected $description = 'Descrição do seu comando';
+    public function handle() {
+        // para acessar seus argumentos, use o metodo argument
+        $this->argument('argumento1');
+        // ...
+    }
+```
+
+#
+
+## Jobs
+Você pode criar trabalhos assincronos para serem processados em uma fila
+### 1.
+execute o comando `artisan make:job NomeTrabalho`.
+
+```php
+// ShouldQueue diz se o trabalho deve ser assincrono ou nao
+class SearchAnimeLinks implements ShouldQueue
+{
+    use Queueable; // para trabalhos sincronos
+
+    // parametros necessarios para o seu trabalho
+    public function __construct(public string $parametro)
+    {
+        // ...
+    }
+
+    // funcao principal do trabalho
+    public function handle(): void
+    {
+        // ...
+    }
+}
+```
+
+### 2.
+para rodar os trabalhos que estao aguardando na fila, use o comando `artisan queue:work`.
+Você pode usar esse comando mais de uma vez para ter multiplos processos trabalhando juntos.
+
+**ATENÇÃO:** o ideal é que um job não leve muito tempo para completar, caso contrário,
+ele vai atrasar outros trabalhos que podem ser importantes.
